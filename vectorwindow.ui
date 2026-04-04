@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>309</width>
-    <height>310</height>
+    <width>323</width>
+    <height>346</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <rect>
       <x>190</x>
       <y>0</y>
-      <width>113</width>
+      <width>111</width>
       <height>121</height>
      </rect>
     </property>
@@ -71,7 +71,7 @@
       <x>190</x>
       <y>0</y>
       <width>111</width>
-      <height>110</height>
+      <height>121</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="const_2">
@@ -79,7 +79,11 @@
       <number>6</number>
      </property>
      <item>
-      <widget class="QLineEdit" name="constEdit"/>
+      <widget class="QLineEdit" name="constEdit">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -89,7 +93,7 @@
       <x>10</x>
       <y>130</y>
       <width>291</width>
-      <height>135</height>
+      <height>161</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -113,6 +117,9 @@
          <property name="text">
           <string>Результат</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -122,6 +129,9 @@
          </property>
          <property name="text">
           <string>Компонента X</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -152,6 +162,9 @@
          </property>
          <property name="text">
           <string>Компонента Y</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -198,7 +211,7 @@
       <x>10</x>
       <y>0</y>
       <width>99</width>
-      <height>119</height>
+      <height>121</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="baseVector">
@@ -284,11 +297,6 @@
       <string>* A</string>
      </property>
     </item>
-    <item>
-     <property name="text">
-      <string>x A</string>
-     </property>
-    </item>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -296,7 +304,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>309</width>
+     <width>323</width>
      <height>22</height>
     </rect>
    </property>

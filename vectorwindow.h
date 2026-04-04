@@ -29,17 +29,27 @@ private slots:
 
     void on_constEdit_editingFinished();
 
+    void on_operation_currentIndexChanged(int index);
+
 private:
     Ui::VectorWindow *ui;
 
     TVector vectorbase;
 
+    void hideSecondVector();
+
+    void showSecondVector();
+
     TVector vectorsecond;
 
     double additonalValue;
 
-    QPalette stdpalette;
+    bool baseVectorGood;
 
-    QPalette redpalette;
+    bool secondVectorGood;
+
+    bool valueGood;
+
+    void calculate();
 };
 #endif // VECTORWINDOW_H

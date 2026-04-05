@@ -34,21 +34,27 @@ private slots:
 private:
     Ui::VectorWindow *ui;
 
-    TVector vectorbase;
+    Vectors::TVector<double> baseVector;
+    Vectors::TVector<double> secondVector;
+    double value;
+
+    int operationType = 0;
+
+
+    bool baseVectorXGood;
+    bool baseVectorYGood;
+    bool secondVectorXGood;
+    bool secondVectorYGood;
+    bool valueIsGood;
+
 
     void hideSecondVector();
-
     void showSecondVector();
 
-    TVector vectorsecond;
+    void showResultOneField();
+    void showResultVector();
 
-    double additonalValue;
-
-    bool baseVectorGood;
-
-    bool secondVectorGood;
-
-    bool valueGood;
+    Vectors::operations currentOperation;
 
     void calculate();
 };

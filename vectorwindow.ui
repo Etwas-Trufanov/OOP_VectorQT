@@ -6,9 +6,27 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>323</width>
-    <height>346</height>
+    <width>310</width>
+    <height>320</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>310</width>
+    <height>320</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>310</width>
+    <height>320</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>VectorWindow</string>
@@ -18,9 +36,9 @@
     <property name="geometry">
      <rect>
       <x>190</x>
-      <y>0</y>
+      <y>10</y>
       <width>111</width>
-      <height>121</height>
+      <height>111</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="secondVector">
@@ -64,28 +82,11 @@
       <widget class="QLineEdit" name="y_edit_2"/>
      </item>
     </layout>
-   </widget>
-   <widget class="QWidget" name="verticalLayoutWidget_3">
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>0</y>
-      <width>111</width>
-      <height>121</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="const_2">
-     <property name="spacing">
-      <number>6</number>
-     </property>
-     <item>
-      <widget class="QLineEdit" name="constEdit">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <zorder>x_label_2</zorder>
+    <zorder>y_label_2</zorder>
+    <zorder>x_edit_2</zorder>
+    <zorder>y_edit_2</zorder>
+    <zorder>verticalSpacer_2</zorder>
    </widget>
    <widget class="QWidget" name="horizontalLayoutWidget_2">
     <property name="geometry">
@@ -93,7 +94,7 @@
       <x>10</x>
       <y>130</y>
       <width>291</width>
-      <height>161</height>
+      <height>141</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -113,7 +114,7 @@
      <item>
       <layout class="QVBoxLayout" name="resultVector">
        <item>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="result_label">
          <property name="text">
           <string>Результат</string>
          </property>
@@ -123,7 +124,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="x_label_3">
+        <widget class="QLabel" name="result_x_label">
          <property name="whatsThis">
           <string/>
          </property>
@@ -136,7 +137,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="x_edit_3">
+        <widget class="QLineEdit" name="result_x">
          <property name="readOnly">
           <bool>true</bool>
          </property>
@@ -156,7 +157,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="y_label_3">
+        <widget class="QLabel" name="result_y_label">
          <property name="whatsThis">
           <string/>
          </property>
@@ -169,7 +170,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="y_edit_3">
+        <widget class="QLineEdit" name="result_y">
          <property name="readOnly">
           <bool>true</bool>
          </property>
@@ -197,7 +198,7 @@
      <rect>
       <x>0</x>
       <y>120</y>
-      <width>311</width>
+      <width>321</width>
       <height>16</height>
      </rect>
     </property>
@@ -209,9 +210,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>0</y>
+      <y>10</y>
       <width>99</width>
-      <height>121</height>
+      <height>111</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="baseVector">
@@ -298,13 +299,42 @@
      </property>
     </item>
    </widget>
+   <widget class="QLineEdit" name="resultField">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>101</x>
+      <y>200</y>
+      <width>109</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="constEdit">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>50</y>
+      <width>111</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>323</width>
+     <width>310</width>
      <height>22</height>
     </rect>
    </property>

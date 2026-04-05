@@ -1,42 +1,84 @@
 #ifndef VECTORLIB_H
 #define VECTORLIB_H
 
-class TVector {
-protected:
-    double x;
-    double y;
+#include <cmath>
 
-public:
-    // Конструкторы
-    TVector();
-    TVector(double x, double y);
+namespace Vectors {
+    enum operations {
+        SCALAR,             // Скалярное произведение векторов
+        MULTVALUE,          // Умножение на скаляр
+        SUMM,                // Сумма векторов
+        SUBSTRACT,             // Вычитание векторов
+        MODULE,             // Модуль (длина вектора)
+        NORMAL              // Нормализация (приведение к длине 1)
+    };
 
-    // Геттеры
-    double get_x() const;
-    double get_y() const;
+    template<typename T>
+    class TVector {
+    protected:
+        T x;
+        T y;
 
-    // Сеттеры
-    void set_x(const double newX) {
-        x = newX;
-    }
+    public:
+        // Конструкторы
+        TVector() : x(0), y(0) {}
+        // Конструктор с параметрами
+        TVector(T x, T y) : x(x), y(y) {}
 
-    // Сеттеры
-    void set_y(const double newY) {
-        x = newY;
-    }
+        // Геттеры
+        T get_x() const {
+            return x;
+        }
+        T get_y() const {
+            return y;
+        }
 
-    // Операторы сложения и вычитания
-    TVector operator+(const TVector &other) const;
-    TVector operator-(const TVector &other) const;
+        // Сеттеры
+        void set_x(const T newX) {
+            x = newX;
+        }
+        // Сеттеры
+        void set_y(const T newY) {
+            y = newY;
+        }
 
-    // Скалярное произведение
-    double scalar(const TVector &other) const;
+        // Сложение векторов
+        // other второй вектор
+        TVector operator+(const TVector &other) const {
+            return TVector(x + other.x, y + other.y);
+        }
+        // Вычитание векторов
+        // other второй вектор
+        TVector operator-(const TVector &other) const {
+            return TVector(x - other.x, y - other.y);
+        }
 
-    // Умножение вектора на число
-    TVector multValue(double value) const;
+        // Скалярное произведение двух векторов
+        // other второй вектор
+        T scalarMult(const TVector &other) const {
+            return x * other.x + y * other.y;
+        }
 
-    // Векторное произведение (для 2D возвращает Z-компонент)
-    double vectorMult(const TVector &other) const;
-};
+        // Умножение вектора на скалярное число
+        // value - число
+        TVector multScalar(T const value) const {
+            return TVector(x * value, y * value);
+        }
+
+        // Длина вектора
+        T module() const {
+            return sqrt((y*y)+(x*x));
+        }
+
+        // Нормализация вектора (приведение к длине 1, без потери направления)
+        TVector normalize() const {
+            double tmpModule = module();
+            return TVector(x/tmpModule, y/tmpModule);
+        }
+    };
+}
+
+
+
 
 #endif // VECTORLIB_H

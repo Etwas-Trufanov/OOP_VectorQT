@@ -38,21 +38,15 @@ private:
     Vectors::TVector<double> secondVector;
     double value;
 
-    int operationType = 0;
-
-
-    bool baseVectorXGood;
-    bool baseVectorYGood;
-    bool secondVectorXGood;
-    bool secondVectorYGood;
-    bool valueIsGood;
-
-
     void hideSecondVector();
     void showSecondVector();
 
     void showResultOneField();
     void showResultVector();
+
+    bool validateBaseVector();
+    bool validateSecondVector();
+    bool validateValue();
 
     Vectors::operations currentOperation;
 

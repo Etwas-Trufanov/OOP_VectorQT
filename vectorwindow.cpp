@@ -8,11 +8,6 @@ VectorWindow::VectorWindow(QWidget *parent)
     this->setFixedSize(this->size());
     this->setWindowFlags(Qt::Window | Qt::MSWindowsFixedSizeDialogHint);
     ui->setupUi(this);
-    baseVectorXGood = false;
-    baseVectorYGood = false;
-    secondVectorXGood = false;
-    secondVectorYGood = false;
-    valueIsGood = false;
     currentOperation = Vectors::operations::MULTVALUE;
     showResultVector();
     hideSecondVector();
@@ -64,65 +59,81 @@ void VectorWindow::showResultVector() {
     ui->resultField->hide();
 }
 
-// Обрабатываем ввод x в базовый вектор
-void VectorWindow::on_x_edit_editingFinished() {
-    bool ok = false;
-    double xValue = ui->x_edit->text().toDouble(&ok);
+bool VectorWindow::validateBaseVector() {
+    bool okX = false;
+    double xValue = ui->x_edit->text().toDouble(&okX);
     // Если ошибка:
-    if (!ok) {
+    if (!okX) {
         ui->x_edit->setStyleSheet("background-color: red;");
-        return;
+        return false;
     }
-    baseVectorXGood = ok;
     baseVector.set_x(xValue);
     ui->x_edit->setStyleSheet("");
+    bool okY = false;
+    double yValue = ui->y_edit->text().toDouble(&okY);
+    // Если ошибка:
+    if (!okY) {
+        ui->y_edit->setStyleSheet("background-color: red;");
+        return false;
+    }
+    baseVector.set_y(yValue);
+    ui->y_edit->setStyleSheet("");
+    return true;
+}
+
+bool VectorWindow::validateSecondVector() {
+    bool okX = false;
+    double xValue = ui->x_edit_2->text().toDouble(&okX);
+    // Если ошибка:
+    if (!okX) {
+        ui->x_edit_2->setStyleSheet("background-color: red;");
+        return false;
+    }
+    secondVector.set_x(xValue);
+    ui->x_edit_2->setStyleSheet("");
+    bool okY = false;
+    double yValue = ui->y_edit_2->text().toDouble(&okY);
+    // Если ошибка:
+    if (!okY) {
+        ui->y_edit_2->setStyleSheet("background-color: red;");
+        return false;
+    }
+    secondVector.set_y(yValue);
+    ui->y_edit_2->setStyleSheet("");
+    return true;
+}
+bool VectorWindow::validateValue() {
+    bool ok = false;
+    double Value = ui->constEdit->text().toDouble(&ok);
+    // Если ошибка:
+    if (!ok) {
+        ui->constEdit->setStyleSheet("background-color: red;");
+        return false;
+    }
+    value = Value;
+    ui->constEdit->setStyleSheet("");
+    return true;
+}
+
+// Обрабатываем ввод x в базовый вектор
+void VectorWindow::on_x_edit_editingFinished() {
     calculate();
 }
 
 
 // Обрабатываем ввод y в базовый вектор
 void VectorWindow::on_y_edit_editingFinished() {
-    bool ok = false;
-    double yValue = ui->y_edit->text().toDouble(&ok);
-    // Если ошибка:
-    if (!ok) {
-        ui->y_edit->setStyleSheet("background-color: red;");
-        return;
-    }
-    baseVectorYGood = ok;
-    baseVector.set_y(yValue);
-    ui->y_edit->setStyleSheet("");
     calculate();
 }
 
 
 // Обрабатываем ввод x во второй вектор
 void VectorWindow::on_x_edit_2_editingFinished() {
-    bool ok = false;
-    double xValue = ui->x_edit_2->text().toDouble(&ok);
-    // Если ошибка:
-    if (!ok) {
-        ui->x_edit_2->setStyleSheet("background-color: red;");
-        return;
-    }
-    secondVectorXGood = ok;
-    secondVector.set_x(xValue);
-    ui->x_edit_2->setStyleSheet("");
     calculate();
 }
 
 // Обрабатываем ввод y во второй вектор
 void VectorWindow::on_y_edit_2_editingFinished() {
-    bool ok = false;
-    double yValue = ui->y_edit_2->text().toDouble(&ok);
-    // Если ошибка:
-    if (!ok) {
-        ui->y_edit_2->setStyleSheet("background-color: red;");
-        return;
-    }
-    secondVectorYGood = ok;
-    secondVector.set_y(yValue);
-    ui->y_edit_2->setStyleSheet("");
     calculate();
 }
 
@@ -130,16 +141,6 @@ void VectorWindow::on_y_edit_2_editingFinished() {
 
 // Обрабатываем ввод константы
 void VectorWindow::on_constEdit_editingFinished() {
-    bool ok = false;
-    double Value = ui->constEdit->text().toDouble(&ok);
-    // Если ошибка:
-    if (!ok) {
-        ui->constEdit->setStyleSheet("background-color: red;");
-        return;
-    }
-    valueIsGood = ok;
-    value = Value;
-    ui->constEdit->setStyleSheet("");
     calculate();
 }
 
@@ -186,34 +187,34 @@ void VectorWindow::on_operation_currentIndexChanged(int index) {
 void VectorWindow::calculate() {
     switch (currentOperation) {
     case Vectors::operations::MULTVALUE:
-        if (baseVectorXGood and baseVectorYGood and valueIsGood) {
+        if (validateBaseVector() and validateValue()) {
             Vectors::TVector tmp = baseVector.multScalar(value);
             ui->result_x->setText(QString::number(tmp.get_x()));
             ui->result_y->setText(QString::number(tmp.get_y()));
         }
         break;
     case Vectors::operations::MODULE:
-        if (baseVectorXGood and baseVectorYGood) {
+        if (validateBaseVector()) {
             double tmp = baseVector.module();
             ui->resultField->setText(QString::number(tmp));
         }
         break;
     case Vectors::operations::SUMM:
-        if (baseVectorXGood and baseVectorYGood and secondVectorXGood and secondVectorYGood) {
+        if (validateBaseVector() and validateSecondVector()) {
             Vectors::TVector tmp = baseVector + secondVector;
             ui->result_x->setText(QString::number(tmp.get_x()));
             ui->result_y->setText(QString::number(tmp.get_y()));
         }
         break;
     case Vectors::operations::SUBSTRACT:
-        if (baseVectorXGood and baseVectorYGood and secondVectorXGood and secondVectorYGood) {
+        if (validateBaseVector() and validateSecondVector()) {
             Vectors::TVector tmp = baseVector - secondVector;
             ui->result_x->setText(QString::number(tmp.get_x()));
             ui->result_y->setText(QString::number(tmp.get_y()));
         }
         break;
     case Vectors::operations::SCALAR:
-        if (baseVectorXGood and baseVectorYGood and secondVectorXGood and secondVectorYGood) {
+        if (validateBaseVector() and validateSecondVector()) {
             double tmp = baseVector.scalarMult(secondVector);
             ui->resultField->setText(QString::number(tmp));
         }

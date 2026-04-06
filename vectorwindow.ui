@@ -50,6 +50,9 @@
        <property name="text">
         <string>Компонента X</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
       </widget>
      </item>
      <item>
@@ -75,6 +78,9 @@
        </property>
        <property name="text">
         <string>Компонента Y</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -224,6 +230,9 @@
        <property name="text">
         <string>Компонента X</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
       </widget>
      </item>
      <item>
@@ -250,6 +259,9 @@
        <property name="text">
         <string>Компонента Y</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
       </widget>
      </item>
      <item>
@@ -264,8 +276,8 @@
    <widget class="QComboBox" name="operation">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>50</y>
+      <x>122</x>
+      <y>55</y>
       <width>57</width>
       <height>25</height>
      </rect>
@@ -328,6 +340,33 @@
      </rect>
     </property>
    </widget>
+   <widget class="QLabel" name="valueLabel">
+    <property name="geometry">
+     <rect>
+      <x>101</x>
+      <y>180</y>
+      <width>108</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="whatsThis">
+     <string/>
+    </property>
+    <property name="text">
+     <string>Значение</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
+   <zorder>valueLabel</zorder>
+   <zorder>verticalLayoutWidget_2</zorder>
+   <zorder>horizontalLayoutWidget_2</zorder>
+   <zorder>line</zorder>
+   <zorder>verticalLayoutWidget</zorder>
+   <zorder>operation</zorder>
+   <zorder>resultField</zorder>
+   <zorder>constEdit</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

@@ -4,6 +4,7 @@
 #include <cmath>
 
 namespace Vectors {
+    // Виды операций
     enum operations {
         SCALAR,             // Скалярное произведение векторов
         MULTVALUE,          // Умножение на скаляр
@@ -13,14 +14,15 @@ namespace Vectors {
         NORMAL              // Нормализация (приведение к длине 1)
     };
 
+    // Шаблон класса
     template<typename T>
     class TVector {
     protected:
-        T x;
-        T y;
+        T x;    // X значение вектора
+        T y;    // Y значение вектора
 
     public:
-        // Конструкторы
+        // Конструктор
         TVector() : x(0), y(0) {}
         // Конструктор с параметрами
         TVector(T x, T y) : x(x), y(y) {}
@@ -37,7 +39,6 @@ namespace Vectors {
         void set_x(const T newX) {
             x = newX;
         }
-        // Сеттеры
         void set_y(const T newY) {
             y = newY;
         }

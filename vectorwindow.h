@@ -38,7 +38,7 @@ private:
     Vectors::TVector<double> secondVector;
     double value;
 
-    void hideSecondVector();
+    void hideSecondVector(bool disableConstEdit);
     void showSecondVector();
 
     void showResultOneField();

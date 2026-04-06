@@ -10,7 +10,7 @@ VectorWindow::VectorWindow(QWidget *parent)
     ui->setupUi(this);
     currentOperation = Vectors::operations::MULTVALUE;
     showResultVector();
-    hideSecondVector();
+    hideSecondVector(false);
 }
 
 // Деструктор окна
@@ -21,7 +21,9 @@ VectorWindow::~VectorWindow()
 
 // Сокрытие второго вектора
 // И скрыть поле ввода константы
-void VectorWindow::hideSecondVector() {
+void VectorWindow::hideSecondVector(bool disableConstEdit) {
+    ui->x_edit_2->clear();
+    ui->y_edit_2->clear();
     ui->x_edit_2->hide();
     ui->y_edit_2->hide();
     ui->x_label_2->hide();
@@ -33,6 +35,7 @@ void VectorWindow::hideSecondVector() {
 // Показать второй вектор
 // И скрыть поле ввода константы
 void VectorWindow::showSecondVector() {
+    ui->constEdit->clear();
     ui->x_edit_2->show();
     ui->y_edit_2->show();
     ui->x_label_2->show();
@@ -42,6 +45,7 @@ void VectorWindow::showSecondVector() {
 }
 
 void VectorWindow::showResultOneField() {
+    ui->valueLabel->show();
     ui->result_x->hide();
     ui->result_x_label->hide();
     ui->result_y->hide();
@@ -51,6 +55,7 @@ void VectorWindow::showResultOneField() {
 }
 
 void VectorWindow::showResultVector() {
+    ui->valueLabel->hide();
     ui->result_x->show();
     ui->result_x_label->show();
     ui->result_y->show();
@@ -149,15 +154,19 @@ void VectorWindow::on_constEdit_editingFinished() {
 void VectorWindow::on_operation_currentIndexChanged(int index) {
     switch (index) {
         case 0: {
+            // Текущая операция - умножение на значение (на скаляр)
             currentOperation = Vectors::operations::MULTVALUE;
-            hideSecondVector();
+            // Скрываем второй вектор
+            hideSecondVector(false);
+            // Результат - вектор
             showResultVector();
             break;
         }
         case 1: {
-            hideSecondVector();
             currentOperation = Vectors::operations::MODULE;
+            hideSecondVector(true);
             showResultOneField();
+            ui->constEdit->setDisabled(true);
             break;
         }
         case 2: {

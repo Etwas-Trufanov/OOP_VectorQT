@@ -9,8 +9,8 @@ VectorWindow::VectorWindow(QWidget *parent)
     this->setWindowFlags(Qt::Window | Qt::MSWindowsFixedSizeDialogHint);
     ui->setupUi(this);
     currentOperation = Vectors::operations::MULTVALUE;
-    showResultVector();
-    hideSecondVector(false);
+    setResultVectorVisible(true);
+    setVectorVisible(false);
 }
 
 // Деструктор окна
@@ -21,47 +21,37 @@ VectorWindow::~VectorWindow()
 
 // Сокрытие второго вектора
 // И скрыть поле ввода константы
-void VectorWindow::hideSecondVector(bool disableConstEdit) {
-    ui->x_edit_2->clear();
-    ui->y_edit_2->clear();
-    ui->x_edit_2->hide();
-    ui->y_edit_2->hide();
-    ui->x_label_2->hide();
-    ui->y_label_2->hide();
-
-    ui->constEdit->show();
+// True - вектор видим, False - вектор скрыт
+void VectorWindow::setVectorVisible(bool mode) {
+    // Учитываем предыдущее состояние
+    static auto vectorVisible = true;
+    if (vectorVisible != mode) {
+        ui->x_edit_2->clear();
+        ui->y_edit_2->clear();
+        ui->constEdit->clear();
+    }
+    ui->x_edit_2->setVisible(mode);
+    ui->y_edit_2->setVisible(mode);
+    ui->x_label_2->setVisible(mode);
+    ui->y_label_2->setVisible(mode);
+    ui->constEdit->setVisible(!mode);
+    vectorVisible = mode;
 }
 
-// Показать второй вектор
-// И скрыть поле ввода константы
-void VectorWindow::showSecondVector() {
-    ui->constEdit->clear();
-    ui->x_edit_2->show();
-    ui->y_edit_2->show();
-    ui->x_label_2->show();
-    ui->y_label_2->show();
-
-    ui->constEdit->hide();
+void VectorWindow::setResultVectorVisible(bool mode) {
+    ui->result_x->clear();
+    ui->result_y->clear();
+    ui->resultField->clear();
+    ui->result_x->setVisible(mode);
+    ui->result_y->setVisible(mode);
+    ui->result_x_label->setVisible(mode);
+    ui->result_y_label->setVisible(mode);
+    ui->resultField->setVisible(!mode);
+    ui->valueLabel->setVisible(!mode);
 }
 
-void VectorWindow::showResultOneField() {
-    ui->valueLabel->show();
-    ui->result_x->hide();
-    ui->result_x_label->hide();
-    ui->result_y->hide();
-    ui->result_y_label->hide();
-
-    ui->resultField->show();
-}
-
-void VectorWindow::showResultVector() {
-    ui->valueLabel->hide();
-    ui->result_x->show();
-    ui->result_x_label->show();
-    ui->result_y->show();
-    ui->result_y_label->show();
-
-    ui->resultField->hide();
+void VectorWindow::lockConstField(bool mode) {
+    ui->constEdit->setEnabled(!mode);
 }
 
 bool VectorWindow::validateBaseVector() {
@@ -157,34 +147,37 @@ void VectorWindow::on_operation_currentIndexChanged(int index) {
             // Текущая операция - умножение на значение (на скаляр)
             currentOperation = Vectors::operations::MULTVALUE;
             // Скрываем второй вектор
-            hideSecondVector(false);
+            setVectorVisible(false);
             // Результат - вектор
-            showResultVector();
+            setResultVectorVisible(true);
+            // Включаем поле ввода
+            lockConstField(false);
             break;
         }
         case 1: {
             currentOperation = Vectors::operations::MODULE;
-            hideSecondVector(true);
-            showResultOneField();
-            ui->constEdit->setDisabled(true);
+            setVectorVisible(false);
+            setResultVectorVisible(false);
+            lockConstField(true);
             break;
         }
         case 2: {
             currentOperation = Vectors::operations::SUMM;
-            showSecondVector();
-            showResultVector();
+            setVectorVisible(true);
+            setResultVectorVisible(true);
             break;
         }
         case 3: {
             currentOperation = Vectors::operations::SUBSTRACT;
-            showSecondVector();
-            showResultVector();
+            setVectorVisible(true);
+            setResultVectorVisible(true);
             break;
         }
         case 4: {
             currentOperation = Vectors::operations::SCALAR;
-            showSecondVector();
-            showResultOneField();
+            setVectorVisible(true);
+            setResultVectorVisible(false);
+            lockConstField(false);
             break;
         }
     }

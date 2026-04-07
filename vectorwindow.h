@@ -38,11 +38,11 @@ private:
     Vectors::TVector<double> secondVector;
     double value;
 
-    void hideSecondVector(bool disableConstEdit);
-    void showSecondVector();
+    void setVectorVisible(bool mode);
 
-    void showResultOneField();
-    void showResultVector();
+    void setResultVectorVisible(bool mode);
+
+    void lockConstField(bool mode);
 
     bool validateBaseVector();
     bool validateSecondVector();
